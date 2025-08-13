@@ -1,0 +1,417 @@
+/* Grade Overview Page Styles */
+
+/* Resource Type Cards */
+.resource-type-card {
+    display: block;
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    height: 100%;
+}
+
+.resource-type-card:hover {
+    text-decoration: none;
+    color: inherit;
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.resource-type-card.textbooks {
+    border-color: var(--info);
+}
+
+.resource-type-card.textbooks:hover {
+    border-color: var(--info);
+    background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(33, 150, 243, 0.05));
+}
+
+.resource-type-card.papers {
+    border-color: var(--success);
+}
+
+.resource-type-card.papers:hover {
+    border-color: var(--success);
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(76, 175, 80, 0.05));
+}
+
+.resource-type-card.notes {
+    border-color: var(--warning);
+}
+
+.resource-type-card.notes:hover {
+    border-color: var(--warning);
+    background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(255, 152, 0, 0.05));
+}
+
+.resource-type-card.videos {
+    border-color: var(--danger);
+}
+
+.resource-type-card.videos:hover {
+    border-color: var(--danger);
+    background: linear-gradient(135deg, rgba(244, 67, 54, 0.1), rgba(244, 67, 54, 0.05));
+}
+
+.resource-type-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.resource-type-card:hover .resource-type-icon {
+    transform: rotateY(180deg);
+}
+
+.resource-type-card.textbooks .resource-type-icon {
+    background: linear-gradient(135deg, var(--info), #1976D2);
+}
+
+.resource-type-card.papers .resource-type-icon {
+    background: linear-gradient(135deg, var(--success), #388E3C);
+}
+
+.resource-type-card.notes .resource-type-icon {
+    background: linear-gradient(135deg, var(--warning), #F57C00);
+}
+
+.resource-type-card.videos .resource-type-icon {
+    background: linear-gradient(135deg, var(--danger), #D32F2F);
+}
+
+.resource-type-card h5 {
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.resource-type-card p {
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.resource-count {
+    display: inline-block;
+    background: var(--light);
+    color: var(--primary);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Subject Overview Cards */
+.subject-overview-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    height: 100%;
+}
+
+.subject-overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    border-color: var(--primary);
+}
+
+.subject-overview-card .subject-icon {
+    width: 60px;
+    height: 60px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+    transition: all 0.3s ease;
+}
+
+.subject-overview-card:hover .subject-icon {
+    background: var(--secondary);
+    transform: scale(1.1);
+}
+
+.subject-overview-card h6 {
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.subject-stats {
+    color: #6c757d;
+}
+
+/* Textbook Medium Cards */
+.textbook-medium-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border-left: 5px solid;
+    margin-bottom: 2rem;
+    height: 100%;
+}
+
+.textbook-medium-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.textbook-medium-card.sinhala {
+    border-left-color: var(--sinhala);
+}
+
+.textbook-medium-card.tamil {
+    border-left-color: var(--tamil);
+}
+
+.textbook-medium-card.english {
+    border-left-color: var(--english);
+}
+
+.textbook-medium-card h5 {
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.download-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--light);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.download-item:last-child {
+    margin-bottom: 0;
+}
+
+.download-info h6 {
+    margin: 0;
+    color: var(--dark);
+    font-size: 0.9rem;
+}
+
+/* Paper Type Cards */
+.paper-type-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.paper-type-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.paper-type-card.term-papers {
+    border-left: 5px solid var(--success);
+}
+
+.paper-type-card.chapter-papers {
+    border-left: 5px solid var(--info);
+}
+
+.paper-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background: var(--light);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.paper-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Notes Grid */
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.note-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    border-left: 5px solid var(--warning);
+}
+
+.note-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.note-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--warning);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.note-content {
+    flex: 1;
+}
+
+.note-content h6 {
+    margin: 0;
+    color: var(--dark);
+}
+
+/* Videos Grid */
+.videos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.video-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: var(--light);
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placeholder-thumbnail {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: var(--danger);
+    background: linear-gradient(135deg, #ffebee, #ffcdd2);
+}
+
+.play-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    color: white;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.video-card:hover .play-overlay {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+}
+
+.video-content {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.video-content h6 {
+    margin: 0;
+    color: var(--dark);
+    flex: 1;
+    margin-right: 1rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background: transparent;
+    padding: 0;
+}
+
+.breadcrumb-item a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .resource-type-card {
+        padding: 1.5rem;
+    }
+    
+    .resource-type-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .textbook-medium-card {
+        padding: 1.5rem;
+    }
+    
+    .notes-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .videos-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .video-thumbnail {
+        height: 180px;
+    }
+}

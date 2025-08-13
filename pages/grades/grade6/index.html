@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Grade 6 Resources - Teaching Torch">
+    <title>Grade 6 Resources - Teaching Torch</title>
+    <link rel="icon" href="../../../assets/images/T.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../../css/styles.css" rel="stylesheet">
+    <link href="../../../css/pages/grades.css" rel="stylesheet">
+    <link href="../../../css/pages/grade-overview.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Content will be loaded dynamically -->
+    <div id="main-content">
+        <!-- Loading spinner -->
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/data-manager.js"></script>
+    <script src="../../../js/content-loader.js"></script>
+    <script src="../../../js/partials-loader.js"></script>
+    <script src="../../../js/scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get grade ID from URL path
+            const gradeId = 'grade6'; // This would be dynamically determined
+            
+            // Load partials first
+            window.PartialsLoader.loadAllPartials('../../../').then(() => {
+                // Load grade overview content
+                const content = window.contentLoader.loadGradeOverview(gradeId);
+                document.getElementById('main-content').innerHTML = content;
+                
+                // Initialize interactions
+                initializeGradeOverview();
+            });
+        });
+
+        function initializeGradeOverview() {
+            // Add hover effects to resource type cards
+            const resourceCards = document.querySelectorAll('.resource-type-card');
+            resourceCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.05)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add click tracking
+            resourceCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const resourceType = this.href.split('/').pop().replace('.html', '');
+                    console.log(`Navigating to ${resourceType} page`);
+                });
+            });
+        }
+    </script>
+</body>
+</html>

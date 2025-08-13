@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Teaching Torch - Free Education Resources for Sri Lankan Students">
+    <title>Teaching Torch - Free Education Resources</title>
+    <link rel="icon" href="assets/images/T.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    
+    <!-- Test CSS -->
+    <style>
+        .navbar {
+            background: #2E7D32 !important;
+            position: fixed !important;
+            top: 0 !important;
+            width: 100% !important;
+            z-index: 1000 !important;
+            padding: 1rem 0 !important;
+            display: block !important;
+        }
+        
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold !important;
+            text-decoration: none !important;
+        }
+        
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+        }
+        
+        body {
+            padding-top: 80px !important;
+        }
+        
+        .hero-section {
+            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%) !important;
+            min-height: 400px !important;
+            display: flex !important;
+            align-items: center !important;
+            color: white !important;
+        }
+        
+        .btn-primary {
+            background: #2E7D32 !important;
+            border-color: #2E7D32 !important;
+        }
+        
+        .grade-icon {
+            background: #2E7D32 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Direct Navbar (no partials) -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+    <img src="assets/images/T.png" alt="Teaching Torch" width="40" height="40" class="me-2">
+    <span class="brand-text">Teaching Torch</span>
+</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="bi bi-house-fill me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/about.html">
+                            <i class="bi bi-info-circle-fill me-1"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pages/contact.html">
+                            <i class="bi bi-envelope-fill me-1"></i>Contact
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-book-fill me-1"></i>Grades
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="pages/grades/grade6/">Grade 6</a></li>
+                            <li><a class="dropdown-item" href="pages/grades/grade7/">Grade 7</a></li>
+                            <li><a class="dropdown-item" href="pages/grades/grade8/">Grade 8</a></li>
+                            <li><a class="dropdown-item" href="pages/grades/grade9/">Grade 9</a></li>
+                            <li><a class="dropdown-item" href="pages/grades/grade10/">Grade 10</a></li>
+                            <li><a class="dropdown-item" href="pages/grades/grade11/">Grade 11</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="pages/grades/al/">
+                                <i class="bi bi-mortarboard-fill me-1"></i>Advanced Level
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero-section">
+        <div class="container text-center text-white">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold mb-3">Welcome to Teaching Torch</h1>
+                <p class="lead mb-4">Free Educational Resources for Sri Lankan Students (Grades 6–A/L)</p>
+                <div class="hero-buttons">
+                    <a href="#grades" class="btn btn-light btn-lg me-3">Explore Grades</a>
+                    <!--<a href="admin/login.html" class="btn btn-outline-light btn-lg">Admin Login</a> -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <section class="py-5" id="grades">
+        <div class="container">
+            <h2 class="text-center mb-5">Choose Your Grade</h2>
+            <div class="row g-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="grade-card">
+                        <div class="grade-icon">6</div>
+                        <h5>Grade 6</h5>
+                        <p class="text-muted">Foundation level subjects</p>
+                        <a href="pages/grades/grade6/" class="btn btn-primary">View Resources</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="grade-card">
+                        <div class="grade-icon">7</div>
+                        <h5>Grade 7</h5>
+                        <p class="text-muted">Intermediate level content</p>
+                        <a href="pages/grades/grade7/" class="btn btn-primary">View Resources</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="grade-card">
+                        <div class="grade-icon">8</div>
+                        <h5>Grade 8</h5>
+                        <p class="text-muted">Advanced concepts introduction</p>
+                        <a href="pages/grades/grade8/" class="btn btn-primary">View Resources</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="grade-card">
+                        <div class="grade-icon">9</div>
+                        <h5>Grade 9</h5>
+                        <p class="text-muted">Pre-O/L preparation</p>
+                        <a href="pages/grades/grade9/" class="btn btn-primary">View Resources</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="grade-card">
+                        <div class="grade-icon">10</div>
+                        <h5>Grade 10</h5>
+                        <p class="text-muted">O/L examination year</p>
+                        <a href="pages/grades/grade10/" class="btn btn-primary">View Resources</a>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="grade-card">
+                        <div class="grade-icon">11</div>
+                        <h5>Grade 11</h5>
+                        <p class="text-muted">Post-O/L studies</p>
+                        <a href="pages/grades/grade11/" class="btn btn-primary">View Resources</a>
+                    </div>
+                </div>
+                <div class="col-md-6 mx-auto">
+                    <div class="grade-card advanced-level">
+                        <div class="grade-icon">A/L</div>
+                        <h5>Advanced Level</h5>
+                        <p class="text-muted">University preparation</p>
+                        <a href="pages/grades/al/" class="btn btn-success">View Resources</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h3 class="text-center mb-5">Why Choose Teaching Torch?</h3>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-download"></i>
+                        </div>
+                        <h5>Free Downloads</h5>
+                        <p>All resources are completely free to download and use for educational purposes.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-translate"></i>
+                        </div>
+                        <h5>Multi-Language</h5>
+                        <p>Resources available in Sinhala, Tamil, and English to serve all Sri Lankan students.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <h5>Mobile Friendly</h5>
+                        <p>Access your study materials anytime, anywhere on any device.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Direct Footer (no partials) -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 Teaching Torch. All rights reserved.</p>
+            <small class="text-muted">Made with ❤️ for Sri Lankan Education 🇱🇰</small>
+        </div>
+    </footer>
+
+    <!-- Only Essential Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simple search functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('globalSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    console.log('Search:', this.value);
+                });
+            }
+            
+            // Simple hover effects
+            const cards = document.querySelectorAll('.grade-card, .feature-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

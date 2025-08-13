@@ -1,0 +1,35 @@
+/* About Page Enhancements */
+.stats-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-item h3 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0;
+}
+
+.stat-item span {
+    font-size: 0.9rem;
+    color: #6c757d;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.vision-section {
+    background: linear-gradient(135deg, rgba(46, 125, 50, 0.1), rgba(27, 94, 32, 0.1));
+    padding: 3rem;
+    border-radius: 20px;
+    margin-top: 3rem;
+}
+
+.cta-section {
+    margin-top: 2rem;
+}
