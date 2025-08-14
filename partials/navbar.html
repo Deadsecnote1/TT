@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
             <img src="assets/images/T.png" alt="Teaching Torch" width="40" height="40" class="me-2">
@@ -8,7 +8,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="index.html">
                         <i class="bi bi-house-fill me-1"></i>Home
@@ -42,6 +42,199 @@
                     </ul>
                 </li>
             </ul>
+            
+            <!-- Language Filter and Theme Controls -->
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="languageToggle">
+                        <i class="bi bi-translate me-1"></i>
+                        <span id="currentLanguage">All Languages</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item language-option" data-lang="all">
+                            <i class="bi bi-globe me-2"></i>All Languages
+                        </a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item language-option" data-lang="sinhala">
+                            <i class="bi bi-circle-fill me-2 text-warning"></i>සිංහල (Sinhala)
+                        </a></li>
+                        <li><a class="dropdown-item language-option" data-lang="tamil">
+                            <i class="bi bi-circle-fill me-2 text-info"></i>தமிழ் (Tamil)
+                        </a></li>
+                        <li><a class="dropdown-item language-option" data-lang="english">
+                            <i class="bi bi-circle-fill me-2 text-primary"></i>English
+                        </a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link btn btn-link" id="themeToggle" title="Toggle Dark Mode">
+                        <i class="bi bi-moon-fill" id="themeIcon"></i>
+                    </button>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
+
+<script>
+// Enhanced Navbar Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    initializeLanguageFilter();
+    initializeThemeToggle();
+});
+
+// Language Filter System
+function initializeLanguageFilter() {
+    const currentLang = localStorage.getItem('selectedLanguage') || 'all';
+    updateLanguageDisplay(currentLang);
+    
+    // Set up language option clicks
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.preventDefault();
+            const selectedLang = this.getAttribute('data-lang');
+            setLanguage(selectedLang);
+        });
+    });
+    
+    // Apply initial filter
+    applyLanguageFilter(currentLang);
+}
+
+function setLanguage(language) {
+    localStorage.setItem('selectedLanguage', language);
+    updateLanguageDisplay(language);
+    applyLanguageFilter(language);
+    
+    // Trigger custom event for other scripts to listen to
+    window.dispatchEvent(new CustomEvent('languageChanged', { 
+        detail: { language: language } 
+    }));
+}
+
+function updateLanguageDisplay(language) {
+    const currentLanguageSpan = document.getElementById('currentLanguage');
+    const languageNames = {
+        'all': 'All Languages',
+        'sinhala': 'සිංහල',
+        'tamil': 'தமிழ்',
+        'english': 'English'
+    };
+    
+    if (currentLanguageSpan) {
+        currentLanguageSpan.textContent = languageNames[language] || 'All Languages';
+    }
+    
+    // Update active state
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.classList.remove('active');
+        if (option.getAttribute('data-lang') === language) {
+            option.classList.add('active');
+        }
+    });
+}
+
+function applyLanguageFilter(language) {
+    // Filter textbook medium cards
+    document.querySelectorAll('.textbook-medium-card').forEach(card => {
+        if (language === 'all') {
+            card.style.display = 'block';
+        } else {
+            const cardClasses = card.className;
+            if (cardClasses.includes(language)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+    });
+    
+    // Filter paper items by language attribute
+    document.querySelectorAll('[data-language]').forEach(item => {
+        if (language === 'all') {
+            item.style.display = '';
+        } else {
+            const itemLang = item.getAttribute('data-language');
+            item.style.display = itemLang === language ? '' : 'none';
+        }
+    });
+    
+    // Filter note cards by language
+    document.querySelectorAll('.note-card[data-language]').forEach(card => {
+        if (language === 'all') {
+            card.style.display = 'flex';
+        } else {
+            const cardLang = card.getAttribute('data-language');
+            card.style.display = cardLang === language ? 'flex' : 'none';
+        }
+    });
+    
+    // Filter video cards by language
+    document.querySelectorAll('.video-card[data-language]').forEach(card => {
+        if (language === 'all') {
+            card.style.display = 'block';
+        } else {
+            const cardLang = card.getAttribute('data-language');
+            card.style.display = cardLang === language ? 'block' : 'none';
+        }
+    });
+    
+    // Hide empty sections
+    hideEmptySections();
+}
+
+function hideEmptySections() {
+    document.querySelectorAll('.subject-section').forEach(section => {
+        const visibleItems = section.querySelectorAll('.textbook-medium-card:not([style*="display: none"]), .note-card:not([style*="display: none"]), .video-card:not([style*="display: none"]), .paper-item-enhanced:not([style*="display: none"])');
+        
+        if (visibleItems.length === 0) {
+            section.style.display = 'none';
+        } else {
+            section.style.display = 'block';
+        }
+    });
+}
+
+// Dark Mode System
+function initializeThemeToggle() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    
+    document.getElementById('themeToggle').addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        setTheme(newTheme);
+    });
+}
+
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    const themeIcon = document.getElementById('themeIcon');
+    if (themeIcon) {
+        if (theme === 'dark') {
+            themeIcon.className = 'bi bi-sun-fill';
+        } else {
+            themeIcon.className = 'bi bi-moon-fill';
+        }
+    }
+    
+    // Trigger custom event for theme change
+    window.dispatchEvent(new CustomEvent('themeChanged', { 
+        detail: { theme: theme } 
+    }));
+}
+
+// Export functions for global use
+window.LanguageFilter = {
+    setLanguage,
+    applyLanguageFilter,
+    getCurrentLanguage: () => localStorage.getItem('selectedLanguage') || 'all'
+};
+
+window.ThemeManager = {
+    setTheme,
+    getCurrentTheme: () => document.documentElement.getAttribute('data-theme') || 'light'
+};
+</script>

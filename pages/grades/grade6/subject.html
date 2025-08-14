@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Subject Resources - Teaching Torch">
+    <title>Subject Resources - Teaching Torch</title>
+    <link rel="icon" href="../../../assets/images/T.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../../../css/styles.css" rel="stylesheet">
+    <link href="../../../css/pages/grade-overview.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
+
+    <!-- Content will be loaded dynamically -->
+    <div id="main-content">
+        <!-- Loading spinner -->
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../js/data-manager.js"></script>
+    <script src="../../../js/content-loader.js"></script>
+    <script src="../../../js/partials-loader.js"></script>
+    <script src="../../../js/scripts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const subjectId = urlParams.get('subject');
+            const gradeId = getGradeFromPath(); // Extract from URL path
+            
+            if (!subjectId || !gradeId) {
+                showError('Subject or grade not specified');
+                return;
+            }
+            
+            // Load partials first
+            window.PartialsLoader.loadAllPartials('../../../').then(() => {
+                loadSubjectPage(gradeId, subjectId);
+            });
+        });
+
+        function getGradeFromPath() {
+            const path = window.location.pathname;
+            const gradeMatch = path.match(/grades\/([^\/]+)\//);
+            return gradeMatch ? gradeMatch[1] : null;
+        }
+
+        function loadSubjectPage(gradeId, subjectId) {
+            try {
+                const grade = window.dataManager.getGrades()[gradeId];
+                const subjects = window.dataManager.getSubjectsForGrade(gradeId);
+                const subject = subjects[subjectId];
+                
+                if (!grade || !subject) {
+                    showError('Subject not found');
+                    return;
+                }
+                
+                const resources = window.dataManager.getResources(gradeId, subjectId);
+                const videos = window.dataManager.getVideos(gradeId, subjectId);
+                
+                const content = generateSubjectPageHTML(grade, subject, resources, videos);
+                document.getElementById('main-content').innerHTML = content;
+                
+                initializeSubjectPage();
+                
+            } catch (error) {
+                console.error('Error loading subject page:', error);
+                showError('Error loading subject page');
+            }
+        }
+
+        function generateSubjectPageHTML(grade, subject, resources, videos) {
+            return `
+                <header class="grade-header">
+                    <div class="container text-center">
+                        <div class="subject-icon-large mb-3">
+                            <i class="${subject.icon}"></i>
+                        </div>
+                        <h1 class="display-4 fw-bold">${subject.name}</h1>
+                        <p class="lead">${grade.display} Resources</p>
+                    </div>
+                </header>
+
+                <section class="py-3 bg-light">
+                    <div class="container">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item"><a href="../../../index.html">Home</a></li>
+                                <li class="breadcrumb-item"><a href="index.html">${grade.display}</a></li>
+                                <li class="breadcrumb-item active">${subject.name}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </section>
+
+                <section class="py-5">
+                    <div class="container">
+                        <!-- Language Filter Notice -->
+                        <div class="alert alert-info mb-4" id="languageNotice">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <span id="languageNoticeText">Showing all language resources. Use the language filter in the navbar to filter content.</span>
+                        </div>
+
+                        <!-- Textbooks Section -->
+                        <div class="subject-content-section mb-5" data-section="textbooks">
+                            <h3 class="mb-4">
+                                <i class="bi bi-book me-2"></i>Textbooks
+                                <span class="badge bg-primary ms-2" id="textbooksCount">0</span>
+                            </h3>
+                            <div class="row" id="textbooksContainer">
+                                ${generateTextbooksHTML(resources.textbooks)}
+                            </div>
+                        </div>
+
+                        <!-- Term Papers Section -->
+                        <div class="subject-content-section mb-5" data-section="term-papers">
+                            <h3 class="mb-4">
+                                <i class="bi bi-calendar me-2"></i>Term Papers
+                                <span class="badge bg-success ms-2" id="termPapersCount">0</span>
+                            </h3>
+                            <div id="chapterPapersContainer">
+                                ${generateChapterPapersHTML(resources.papers?.chapters)}
+                            </div>
+                        </div>
+
+                        <!-- Short Notes Section -->
+                        <div class="subject-content-section mb-5" data-section="notes">
+                            <h3 class="mb-4">
+                                <i class="bi bi-sticky me-2"></i>Short Notes
+                                <span class="badge bg-warning ms-2" id="notesCount">0</span>
+                            </h3>
+                            <div class="notes-grid" id="notesContainer">
+                                ${generateNotesHTML(resources.notes)}
+                            </div>
+                        </div>
+
+                        <!-- Video Lessons Section -->
+                        <div class="subject-content-section mb-5" data-section="videos">
+                            <h3 class="mb-4">
+                                <i class="bi bi-youtube me-2"></i>Video Lessons
+                                <span class="badge bg-danger ms-2" id="videosCount">0</span>
+                            </h3>
+                            <div class="videos-grid" id="videosContainer">
+                                ${generateVideosHTML(videos)}
+                            </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="text-center py-5" id="emptyState" style="display: none;">
+                            <i class="bi bi-folder2-open fs-1 text-muted"></i>
+                            <h4 class="mt-3 text-muted">No resources found</h4>
+                            <p class="text-muted">No resources available for the selected language filter.</p>
+                        </div>
+                    </div>
+                </section>
+            `;
+        }
+
+        function generateTextbooksHTML(textbooks) {
+            if (!textbooks || Object.keys(textbooks).length === 0) {
+                return '<div class="col-12"><p class="text-muted">No textbooks available</p></div>';
+            }
+
+            let html = '';
+            Object.keys(textbooks).forEach(medium => {
+                const textbook = textbooks[medium];
+                html += `
+                    <div class="col-md-4 textbook-medium-card ${medium}" data-language="${medium}">
+                        <h5><i class="bi bi-download me-2"></i>${getMediumDisplayName(medium)}</h5>
+                        <div class="download-item">
+                            <div class="download-info">
+                                <h6>${textbook.filename}</h6>
+                                <small class="text-muted">${formatFileSize(textbook.size)}</small>
+                            </div>
+                            <a href="../../../${textbook.path}" class="btn btn-primary btn-sm" download>
+                                <i class="bi bi-download me-1"></i>Download
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        function generateTermPapersHTML(termPapers) {
+            if (!termPapers) {
+                return '<p class="text-muted">No term papers available</p>';
+            }
+
+            let html = '';
+            Object.keys(termPapers).forEach(termKey => {
+                const papers = termPapers[termKey];
+                if (Array.isArray(papers) && papers.length > 0) {
+                    html += `
+                        <div class="paper-term-section mb-4">
+                            <h5 class="mb-3">${formatTermName(termKey)}</h5>
+                            <div class="row">
+                    `;
+                    
+                    papers.forEach(paper => {
+                        html += `
+                            <div class="col-md-6 mb-3">
+                                <div class="paper-item-card" data-language="${paper.language || 'english'}">
+                                    <div class="paper-info">
+                                        <h6>${paper.filename}</h6>
+                                        <div class="paper-meta">
+                                            <span class="badge bg-primary">${getMediumDisplayName(paper.language || 'english')}</span>
+                                            ${paper.school ? `<span class="badge bg-info ms-1">${paper.school}</span>` : ''}
+                                            <small class="text-muted d-block mt-1">${formatFileSize(paper.size)}</small>
+                                        </div>
+                                    </div>
+                                    <a href="../../../${paper.path}" class="btn btn-sm btn-outline-primary" download>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            return html || '<p class="text-muted">No term papers available</p>';
+        }
+
+        function generateChapterPapersHTML(chapterPapers) {
+            if (!chapterPapers) {
+                return '<p class="text-muted">No chapter papers available</p>';
+            }
+
+            let html = '';
+            Object.keys(chapterPapers).forEach(chapterKey => {
+                const papers = chapterPapers[chapterKey];
+                if (Array.isArray(papers) && papers.length > 0) {
+                    html += `
+                        <div class="paper-chapter-section mb-4">
+                            <h5 class="mb-3">${formatChapterName(chapterKey)}</h5>
+                            <div class="row">
+                    `;
+                    
+                    papers.forEach(paper => {
+                        html += `
+                            <div class="col-md-6 mb-3">
+                                <div class="paper-item-card" data-language="${paper.language || 'english'}">
+                                    <div class="paper-info">
+                                        <h6>${paper.filename}</h6>
+                                        <div class="paper-meta">
+                                            <span class="badge bg-primary">${getMediumDisplayName(paper.language || 'english')}</span>
+                                            ${paper.school ? `<span class="badge bg-info ms-1">${paper.school}</span>` : ''}
+                                            <small class="text-muted d-block mt-1">${formatFileSize(paper.size)}</small>
+                                        </div>
+                                    </div>
+                                    <a href="../../../${paper.path}" class="btn btn-sm btn-outline-primary" download>
+                                        <i class="bi bi-download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+
+            return html || '<p class="text-muted">No chapter papers available</p>';
+        }
+
+        function generateNotesHTML(notes) {
+            if (!notes || Object.keys(notes).length === 0) {
+                return '<p class="text-muted">No notes available</p>';
+            }
+
+            let html = '';
+            Object.keys(notes).forEach(noteKey => {
+                const note = notes[noteKey];
+                html += `
+                    <div class="note-card" data-language="${note.language || 'english'}">
+                        <div class="note-icon">
+                            <i class="bi bi-file-pdf"></i>
+                        </div>
+                        <div class="note-content">
+                            <h6>${formatChapterName(noteKey)}</h6>
+                            <div class="note-meta">
+                                <span class="badge bg-primary">${getMediumDisplayName(note.language || 'english')}</span>
+                                <small class="text-muted d-block mt-1">${formatFileSize(note.size)}</small>
+                            </div>
+                        </div>
+                        <a href="../../../${note.path}" class="btn btn-primary btn-sm" download>
+                            <i class="bi bi-download"></i>
+                        </a>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        function generateVideosHTML(videos) {
+            if (!videos || videos.length === 0) {
+                return '<p class="text-muted">No video lessons available</p>';
+            }
+
+            let html = '';
+            videos.forEach(video => {
+                const videoId = extractYouTubeId(video.url);
+                const thumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : null;
+
+                html += `
+                    <div class="video-card" data-language="${video.language || 'english'}">
+                        <div class="video-thumbnail">
+                            ${thumbnail ? `<img src="${thumbnail}" alt="${video.title}" onerror="this.parentNode.innerHTML='<div class=\\'placeholder-thumbnail\\'><i class=\\'bi bi-play-circle\\'></i></div>'">` : '<div class="placeholder-thumbnail"><i class="bi bi-play-circle"></i></div>'}
+                            <div class="play-overlay">
+                                <i class="bi bi-play-circle-fill"></i>
+                            </div>
+                        </div>
+                        <div class="video-content">
+                            <div class="video-info">
+                                <h6>${video.title}</h6>
+                                <div class="video-meta">
+                                    <span class="badge bg-primary">${getMediumDisplayName(video.language || 'english')}</span>
+                                    ${video.chapter ? `<small class="text-muted d-block mt-1">${video.chapter}</small>` : ''}
+                                </div>
+                            </div>
+                            <a href="${video.url}" class="btn btn-danger btn-sm" target="_blank">
+                                <i class="bi bi-youtube me-1"></i>Watch
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        function initializeSubjectPage() {
+            // Listen for language changes
+            window.addEventListener('languageChanged', function(e) {
+                applyLanguageFilterToSubject(e.detail.language);
+                updateLanguageNotice(e.detail.language);
+            });
+
+            // Apply initial language filter
+            const currentLang = window.LanguageFilter?.getCurrentLanguage() || 'all';
+            applyLanguageFilterToSubject(currentLang);
+            updateLanguageNotice(currentLang);
+
+            // Update counts
+            updateResourceCounts();
+
+            // Add hover effects
+            addHoverEffects();
+        }
+
+        function applyLanguageFilterToSubject(language) {
+            const elements = document.querySelectorAll('[data-language]');
+            let hasVisibleContent = false;
+
+            elements.forEach(element => {
+                if (language === 'all') {
+                    element.style.display = '';
+                    hasVisibleContent = true;
+                } else {
+                    const elementLang = element.getAttribute('data-language');
+                    if (elementLang === language) {
+                        element.style.display = '';
+                        hasVisibleContent = true;
+                    } else {
+                        element.style.display = 'none';
+                    }
+                }
+            });
+
+            // Show/hide sections based on content
+            document.querySelectorAll('.subject-content-section').forEach(section => {
+                const visibleItems = section.querySelectorAll('[data-language]:not([style*="display: none"])');
+                if (visibleItems.length === 0 && language !== 'all') {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+
+            // Show empty state if no content visible
+            const emptyState = document.getElementById('emptyState');
+            if (!hasVisibleContent && language !== 'all') {
+                emptyState.style.display = 'block';
+            } else {
+                emptyState.style.display = 'none';
+            }
+
+            updateResourceCounts();
+        }
+
+        function updateLanguageNotice(language) {
+            const notice = document.getElementById('languageNoticeText');
+            const languageNames = {
+                'all': 'all language',
+                'sinhala': 'Sinhala (සිංහල)',
+                'tamil': 'Tamil (தமிழ்)',
+                'english': 'English'
+            };
+
+            if (language === 'all') {
+                notice.textContent = 'Showing all language resources. Use the language filter in the navbar to filter content.';
+            } else {
+                notice.textContent = `Showing only ${languageNames[language]} resources. Change language filter in navbar to see other content.`;
+            }
+        }
+
+        function updateResourceCounts() {
+            // Count visible items in each section
+            const sections = {
+                'textbooksCount': document.querySelectorAll('#textbooksContainer .textbook-medium-card:not([style*="display: none"])').length,
+                'termPapersCount': document.querySelectorAll('#termPapersContainer .paper-item-card:not([style*="display: none"])').length,
+                'chapterPapersCount': document.querySelectorAll('#chapterPapersContainer .paper-item-card:not([style*="display: none"])').length,
+                'notesCount': document.querySelectorAll('#notesContainer .note-card:not([style*="display: none"])').length,
+                'videosCount': document.querySelectorAll('#videosContainer .video-card:not([style*="display: none"])').length
+            };
+
+            Object.keys(sections).forEach(countId => {
+                const element = document.getElementById(countId);
+                if (element) {
+                    element.textContent = sections[countId];
+                }
+            });
+        }
+
+        function addHoverEffects() {
+            // Add hover effects to cards
+            document.querySelectorAll('.paper-item-card, .note-card, .video-card, .textbook-medium-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Utility functions
+        function getMediumDisplayName(medium) {
+            const names = {
+                'sinhala': 'සිංහල',
+                'tamil': 'தமிழ்',
+                'english': 'English'
+            };
+            return names[medium] || medium;
+        }
+
+        function formatTermName(termKey) {
+            const termNames = {
+                'term1': '1st Term',
+                'term2': '2nd Term',
+                'term3': '3rd Term'
+            };
+            return termNames[termKey] || termKey.charAt(0).toUpperCase() + termKey.slice(1);
+        }
+
+        function formatChapterName(chapterKey) {
+            if (chapterKey.startsWith('ch')) {
+                const chapterNum = chapterKey.replace('ch', '');
+                return `Chapter ${chapterNum}`;
+            }
+            return chapterKey.charAt(0).toUpperCase() + chapterKey.slice(1).replace('-', ' ');
+        }
+
+        function formatFileSize(bytes) {
+            if (!bytes) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        function extractYouTubeId(url) {
+            const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?([^&\n?#]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        function showError(message) {
+            document.getElementById('main-content').innerHTML = `
+                <div class="container py-5">
+                    <div class="text-center">
+                        <i class="bi bi-exclamation-triangle fs-1 text-warning"></i>
+                        <h3 class="mt-3">Error</h3>
+                        <p class="text-muted">${message}</p>
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Grade Overview
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+
+    <style>
+        /* Subject Page Specific Styles */
+        .subject-icon-large {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin: 0 auto;
+        }
+
+        .paper-item-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px var(--card-shadow);
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .paper-item-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px var(--card-shadow);
+        }
+
+        .paper-info h6 {
+            margin: 0;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .paper-meta .badge {
+            font-size: 0.7rem;
+        }
+
+        .subject-content-section {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 2rem;
+        }
+
+        .subject-content-section:last-child {
+            border-bottom: none;
+        }
+
+        .video-info {
+            flex: 1;
+        }
+
+        .video-meta .badge {
+            font-size: 0.7rem;
+        }
+
+        .note-meta .badge {
+            font-size: 0.7rem;
+        }
+
+        @media (max-width: 768px) {
+            .subject-icon-large {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+            
+            .paper-item-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</body>
+</html>termPapersContainer">
+                                ${generateTermPapersHTML(resources.papers?.terms)}
+                            </div>
+                        </div>
+
+                        <!-- Chapter Papers Section -->
+                        <div class="subject-content-section mb-5" data-section="chapter-papers">
+                            <h3 class="mb-4">
+                                <i class="bi bi-journal-text me-2"></i>Chapter Papers
+                                <span class="badge bg-info ms-2" id="chapterPapersCount">0</span>
+                            </h3>
+                            <div id="
