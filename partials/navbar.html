@@ -48,21 +48,17 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" id="languageToggle">
                         <i class="bi bi-translate me-1"></i>
-                        <span id="currentLanguage">All Languages</span>
+                        <span id="currentLanguage">English</span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item language-option" data-lang="all">
-                            <i class="bi bi-globe me-2"></i>All Languages
+                        <li><a class="dropdown-item language-option" data-lang="english">
+                            <i class="bi bi-circle-fill me-2 text-primary"></i>English
                         </a></li>
-                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item language-option" data-lang="sinhala">
                             <i class="bi bi-circle-fill me-2 text-warning"></i>සිංහල (Sinhala)
                         </a></li>
                         <li><a class="dropdown-item language-option" data-lang="tamil">
                             <i class="bi bi-circle-fill me-2 text-info"></i>தமிழ் (Tamil)
-                        </a></li>
-                        <li><a class="dropdown-item language-option" data-lang="english">
-                            <i class="bi bi-circle-fill me-2 text-primary"></i>English
                         </a></li>
                     </ul>
                 </li>
@@ -77,18 +73,19 @@
 </nav>
 
 <script>
-// Enhanced Navbar Functionality
+// Enhanced Navbar Functionality - NO NOTIFICATIONS
 document.addEventListener('DOMContentLoaded', function() {
     initializeLanguageFilter();
     initializeThemeToggle();
 });
 
-// Language Filter System
+// Language Filter System - No Notifications
 function initializeLanguageFilter() {
-    const currentLang = localStorage.getItem('selectedLanguage') || 'all';
+    const currentLang = localStorage.getItem('selectedLanguage') || 'english';
+    localStorage.setItem('selectedLanguage', currentLang);
+    
     updateLanguageDisplay(currentLang);
     
-    // Set up language option clicks
     document.querySelectorAll('.language-option').forEach(option => {
         option.addEventListener('click', function(e) {
             e.preventDefault();
@@ -97,8 +94,9 @@ function initializeLanguageFilter() {
         });
     });
     
-    // Apply initial filter
-    applyLanguageFilter(currentLang);
+    setTimeout(() => {
+        applyLanguageFilter(currentLang);
+    }, 500);
 }
 
 function setLanguage(language) {
@@ -106,26 +104,25 @@ function setLanguage(language) {
     updateLanguageDisplay(language);
     applyLanguageFilter(language);
     
-    // Trigger custom event for other scripts to listen to
     window.dispatchEvent(new CustomEvent('languageChanged', { 
         detail: { language: language } 
     }));
+    
+    // NO NOTIFICATION - Removed showLanguageChangeNotification
 }
 
 function updateLanguageDisplay(language) {
     const currentLanguageSpan = document.getElementById('currentLanguage');
     const languageNames = {
-        'all': 'All Languages',
         'sinhala': 'සිංහල',
-        'tamil': 'தமிழ்',
+        'tamil': 'தமිழ්',
         'english': 'English'
     };
     
     if (currentLanguageSpan) {
-        currentLanguageSpan.textContent = languageNames[language] || 'All Languages';
+        currentLanguageSpan.textContent = languageNames[language] || 'English';
     }
     
-    // Update active state
     document.querySelectorAll('.language-option').forEach(option => {
         option.classList.remove('active');
         if (option.getAttribute('data-lang') === language) {
@@ -135,57 +132,93 @@ function updateLanguageDisplay(language) {
 }
 
 function applyLanguageFilter(language) {
-    // Filter textbook medium cards
     document.querySelectorAll('.textbook-medium-card').forEach(card => {
-        if (language === 'all') {
+        const cardClasses = card.className.toLowerCase();
+        if (cardClasses.includes(language)) {
             card.style.display = 'block';
+            card.style.opacity = '1';
         } else {
-            const cardClasses = card.className;
-            if (cardClasses.includes(language)) {
-                card.style.display = 'block';
+            card.style.display = 'none';
+        }
+    });
+    
+    document.querySelectorAll('[data-language]').forEach(item => {
+        const itemLang = item.getAttribute('data-language');
+        if (itemLang === language) {
+            item.style.display = '';
+            item.style.opacity = '1';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    
+    document.querySelectorAll('.note-card').forEach(card => {
+        const cardLang = card.getAttribute('data-language');
+        if (cardLang === language || cardLang === null) {
+            if (cardLang === null && language === 'english') {
+                card.style.display = 'flex';
+                card.style.opacity = '1';
+            } else if (cardLang === language) {
+                card.style.display = 'flex';
+                card.style.opacity = '1';
             } else {
                 card.style.display = 'none';
             }
-        }
-    });
-    
-    // Filter paper items by language attribute
-    document.querySelectorAll('[data-language]').forEach(item => {
-        if (language === 'all') {
-            item.style.display = '';
         } else {
-            const itemLang = item.getAttribute('data-language');
-            item.style.display = itemLang === language ? '' : 'none';
+            card.style.display = 'none';
         }
     });
     
-    // Filter note cards by language
-    document.querySelectorAll('.note-card[data-language]').forEach(card => {
-        if (language === 'all') {
-            card.style.display = 'flex';
+    document.querySelectorAll('.video-card').forEach(card => {
+        const cardLang = card.getAttribute('data-language');
+        if (cardLang === language || cardLang === null) {
+            if (cardLang === null && language === 'english') {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+            } else if (cardLang === language) {
+                card.style.display = 'block';
+                card.style.opacity = '1';
+            } else {
+                card.style.display = 'none';
+            }
         } else {
-            const cardLang = card.getAttribute('data-language');
-            card.style.display = cardLang === language ? 'flex' : 'none';
+            card.style.display = 'none';
         }
     });
     
-    // Filter video cards by language
-    document.querySelectorAll('.video-card[data-language]').forEach(card => {
-        if (language === 'all') {
-            card.style.display = 'block';
+    document.querySelectorAll('.paper-item-enhanced, .paper-item').forEach(item => {
+        const itemLang = item.getAttribute('data-language');
+        if (itemLang === language || itemLang === null) {
+            if (itemLang === null && language === 'english') {
+                item.style.display = 'flex';
+                item.style.opacity = '1';
+            } else if (itemLang === language) {
+                item.style.display = 'flex';
+                item.style.opacity = '1';
+            } else {
+                item.style.display = 'none';
+            }
         } else {
-            const cardLang = card.getAttribute('data-language');
-            card.style.display = cardLang === language ? 'block' : 'none';
+            item.style.display = 'none';
         }
     });
     
-    // Hide empty sections
     hideEmptySections();
+    
+    if (typeof updateResourceCounts === 'function') {
+        updateResourceCounts();
+    }
 }
 
 function hideEmptySections() {
     document.querySelectorAll('.subject-section').forEach(section => {
-        const visibleItems = section.querySelectorAll('.textbook-medium-card:not([style*="display: none"]), .note-card:not([style*="display: none"]), .video-card:not([style*="display: none"]), .paper-item-enhanced:not([style*="display: none"])');
+        const visibleItems = section.querySelectorAll(`
+            .textbook-medium-card:not([style*="display: none"]), 
+            .note-card:not([style*="display: none"]), 
+            .video-card:not([style*="display: none"]), 
+            .paper-item-enhanced:not([style*="display: none"]),
+            .paper-item:not([style*="display: none"])
+        `);
         
         if (visibleItems.length === 0) {
             section.style.display = 'none';
@@ -193,22 +226,35 @@ function hideEmptySections() {
             section.style.display = 'block';
         }
     });
-}
-
-// Dark Mode System
-function initializeThemeToggle() {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
     
-    document.getElementById('themeToggle').addEventListener('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        setTheme(newTheme);
+    document.querySelectorAll('.paper-category-section').forEach(section => {
+        const visiblePapers = section.querySelectorAll('.paper-item-enhanced:not([style*="display: none"])');
+        if (visiblePapers.length === 0) {
+            section.style.display = 'none';
+        } else {
+            section.style.display = 'block';
+        }
     });
 }
 
-function setTheme(theme) {
+// Dark Mode System - No Notifications
+function initializeThemeToggle() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme, false); // false = no notification
+    
+    const themeToggleBtn = document.getElementById('themeToggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            setTheme(newTheme, true); // true = show notification only when user clicks
+        });
+    }
+}
+
+function setTheme(theme, showNotification = false) {
     document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
     
     const themeIcon = document.getElementById('themeIcon');
@@ -220,21 +266,99 @@ function setTheme(theme) {
         }
     }
     
-    // Trigger custom event for theme change
     window.dispatchEvent(new CustomEvent('themeChanged', { 
         detail: { theme: theme } 
     }));
+    
+    // Only show notification if explicitly requested (user clicked button)
+    if (showNotification) {
+        console.log(`${theme === 'dark' ? 'Dark' : 'Light'} mode activated`);
+    }
 }
+
+function observeContentChanges() {
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                const currentLang = localStorage.getItem('selectedLanguage') || 'english';
+                setTimeout(() => applyLanguageFilter(currentLang), 100);
+            }
+        });
+    });
+    
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+        observer.observe(mainContent, { childList: true, subtree: true });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    observeContentChanges();
+});
 
 // Export functions for global use
 window.LanguageFilter = {
     setLanguage,
     applyLanguageFilter,
-    getCurrentLanguage: () => localStorage.getItem('selectedLanguage') || 'all'
+    getCurrentLanguage: () => localStorage.getItem('selectedLanguage') || 'english'
 };
 
 window.ThemeManager = {
-    setTheme,
+    setTheme: (theme) => setTheme(theme, false), // No notification for programmatic changes
     getCurrentTheme: () => document.documentElement.getAttribute('data-theme') || 'light'
 };
+
+window.addEventListener('load', function() {
+    const currentLang = localStorage.getItem('selectedLanguage') || 'english';
+    applyLanguageFilter(currentLang);
+});
 </script>
+
+<style>
+.navbar-nav .nav-link.btn {
+    border: none !important;
+    background: none !important;
+    color: rgba(255,255,255,0.8) !important;
+    padding: 0.5rem !important;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link.btn:hover {
+    color: white !important;
+    background: rgba(255,255,255,0.1) !important;
+    transform: scale(1.1);
+}
+
+.navbar-nav .nav-link.btn:focus {
+    outline: 2px solid rgba(255,255,255,0.5);
+    outline-offset: 2px;
+}
+
+.language-option.active {
+    background-color: var(--primary) !important;
+    color: white !important;
+}
+
+.language-option:hover {
+    background-color: rgba(46, 125, 50, 0.1);
+}
+
+.dropdown-menu {
+    border: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    border-radius: 10px;
+    padding: 0.5rem 0;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateX(5px);
+}
+</style>

@@ -10,103 +10,20 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
     
-    <!-- Test CSS -->
-    <style>
-        .navbar {
-            background: #2E7D32 !important;
-            position: fixed !important;
-            top: 0 !important;
-            width: 100% !important;
-            z-index: 1000 !important;
-            padding: 1rem 0 !important;
-            display: block !important;
-        }
-        
-        .navbar-brand {
-            color: white !important;
-            font-weight: bold !important;
-            text-decoration: none !important;
-        }
-        
-        .nav-link {
-            color: rgba(255,255,255,0.8) !important;
-        }
-        
-        .nav-link:hover {
-            color: white !important;
-        }
-        
-        body {
-            padding-top: 80px !important;
-        }
-        
-        .hero-section {
-            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%) !important;
-            min-height: 400px !important;
-            display: flex !important;
-            align-items: center !important;
-            color: white !important;
-        }
-        
-        .btn-primary {
-            background: #2E7D32 !important;
-            border-color: #2E7D32 !important;
-        }
-        
-        .grade-icon {
-            background: #2E7D32 !important;
-        }
-    </style>
+    <!-- Immediate theme application to prevent flash -->
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedLanguage = localStorage.getItem('selectedLanguage') || 'english';
+            
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            localStorage.setItem('selectedLanguage', savedLanguage);
+        })();
+    </script>
 </head>
 <body>
-    <!-- Direct Navbar (no partials) -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-    <img src="assets/images/T.png" alt="Teaching Torch" width="40" height="40" class="me-2">
-    <span class="brand-text">Teaching Torch</span>
-</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="index.html">
-                            <i class="bi bi-house-fill me-1"></i>Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/about.html">
-                            <i class="bi bi-info-circle-fill me-1"></i>About
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/contact.html">
-                            <i class="bi bi-envelope-fill me-1"></i>Contact
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-book-fill me-1"></i>Grades
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="pages/grades/grade6/">Grade 6</a></li>
-                            <li><a class="dropdown-item" href="pages/grades/grade7/">Grade 7</a></li>
-                            <li><a class="dropdown-item" href="pages/grades/grade8/">Grade 8</a></li>
-                            <li><a class="dropdown-item" href="pages/grades/grade9/">Grade 9</a></li>
-                            <li><a class="dropdown-item" href="pages/grades/grade10/">Grade 10</a></li>
-                            <li><a class="dropdown-item" href="pages/grades/grade11/">Grade 11</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="pages/grades/al/">
-                                <i class="bi bi-mortarboard-fill me-1"></i>Advanced Level
-                            </a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <!-- Navbar Placeholder -->
+    <div id="navbar-placeholder"></div>
 
     <header class="hero-section">
         <div class="container text-center text-white">
@@ -115,12 +32,11 @@
                 <p class="lead mb-4">Free Educational Resources for Sri Lankan Students (Grades 6–A/L)</p>
                 <div class="hero-buttons">
                     <a href="#grades" class="btn btn-light btn-lg me-3">Explore Grades</a>
-                    <!--<a href="admin/login.html" class="btn btn-outline-light btn-lg">Admin Login</a> -->
+                    <!-- <a href="admin/login.html" class="btn btn-outline-light btn-lg">Admin Login</a> -->
                 </div>
             </div>
         </div>
     </header>
-
 
     <section class="py-5" id="grades">
         <div class="container">
@@ -222,37 +138,178 @@
         </div>
     </section>
 
-    <!-- Direct Footer (no partials) -->
-    <footer class="bg-dark text-light py-4">
-        <div class="container text-center">
-            <p class="mb-0">&copy; 2025 Teaching Torch. All rights reserved.</p>
-            <small class="text-muted">Made with ❤️ for Sri Lankan Education 🇱🇰</small>
-        </div>
-    </footer>
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
 
-    <!-- Only Essential Scripts -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/data-manager.js"></script>
+    <script src="js/partials-loader.js"></script>
+    
+    <!-- Enhanced Homepage Script - NO NOTIFICATIONS -->
     <script>
-        // Simple search functionality
         document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('globalSearch');
-            if (searchInput) {
-                searchInput.addEventListener('input', function() {
-                    console.log('Search:', this.value);
-                });
-            }
-            
-            // Simple hover effects
-            const cards = document.querySelectorAll('.grade-card, .feature-card');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                });
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
+            initializeHomepageFeatures();
+        });
+
+        function initializeHomepageFeatures() {
+            setupSmoothScroll();
+            setupGradeCardEffects();
+            initializeSearch();
+        }
+
+        function setupSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const headerOffset = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                        
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
+        }
+
+        function setupGradeCardEffects() {
+            const gradeCards = document.querySelectorAll('.grade-card, .feature-card');
+            
+            gradeCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px) scale(1.02)';
+                    this.style.transition = 'all 0.3s ease';
+                    
+                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                    if (currentTheme === 'dark') {
+                        this.style.boxShadow = '0 15px 35px rgba(255, 255, 255, 0.1)';
+                    } else {
+                        this.style.boxShadow = '0 15px 35px rgba(46, 125, 50, 0.2)';
+                    }
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+                    if (currentTheme === 'dark') {
+                        this.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+                    } else {
+                        this.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+                    }
+                });
+            });
+        }
+
+        function initializeSearch() {
+            const searchInput = document.getElementById('globalSearch');
+            if (searchInput) {
+                let searchTimeout;
+                
+                searchInput.addEventListener('input', function() {
+                    clearTimeout(searchTimeout);
+                    searchTimeout = setTimeout(() => {
+                        performSearch(this.value);
+                    }, 300);
+                });
+            }
+        }
+
+        function performSearch(query) {
+            const searchTerm = query.toLowerCase().trim();
+            
+            if (searchTerm.length < 2) {
+                resetSearch();
+                return;
+            }
+            
+            const gradeCards = document.querySelectorAll('.grade-card');
+            let hasResults = false;
+            
+            gradeCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                const cardContainer = card.closest('.col-md-4, .col-sm-6, .col-md-6');
+                
+                if (cardText.includes(searchTerm)) {
+                    if (cardContainer) {
+                        cardContainer.style.display = 'block';
+                        card.style.opacity = '1';
+                        card.style.border = '2px solid var(--primary)';
+                    }
+                    hasResults = true;
+                } else {
+                    if (cardContainer) {
+                        cardContainer.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        function resetSearch() {
+            const gradeCards = document.querySelectorAll('.grade-card');
+            gradeCards.forEach(card => {
+                const cardContainer = card.closest('.col-md-4, .col-sm-6, .col-md-6');
+                if (cardContainer) {
+                    cardContainer.style.display = 'block';
+                }
+                card.style.opacity = '1';
+                card.style.border = 'none';
+            });
+        }
+
+        // Handle external links
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a');
+            if (link && link.href) {
+                if (link.hasAttribute('download') || link.href.endsWith('.pdf')) {
+                    const filename = link.href.split('/').pop();
+                    console.log(`Download tracked: ${filename}`);
+                }
+                
+                if (link.hostname !== window.location.hostname) {
+                    link.setAttribute('target', '_blank');
+                    link.setAttribute('rel', 'noopener noreferrer');
+                }
+            }
         });
+
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript error:', e.error);
+        });
+
+        // Apply initial theme and language settings immediately
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        const savedLanguage = localStorage.getItem('selectedLanguage') || 'english';
+
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.body.setAttribute('data-theme', savedTheme);
+        localStorage.setItem('selectedLanguage', savedLanguage);
     </script>
+
+    <style>
+        /* Enhanced styles for homepage */
+        .grade-card, .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease !important;
+        }
+
+        /* Dark mode specific enhancements */
+        [data-theme="dark"] .grade-card:hover {
+            box-shadow: 0 15px 35px rgba(255, 255, 255, 0.1) !important;
+        }
+
+        [data-theme="light"] .grade-card:hover {
+            box-shadow: 0 15px 35px rgba(46, 125, 50, 0.2) !important;
+        }
+
+        /* Remove any unwanted transitions that might cause flashing */
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease !important;
+        }
+    </style>
 </body>
 </html>

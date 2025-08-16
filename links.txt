@@ -1,0 +1,46 @@
+📋 GitHub File Links in Order of Importance
+🔥 Critical Files (Must Update First):
+
+partials/navbar.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/partials/navbar.html
+js/partials-loader.js - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/js/partials-loader.js
+css/styles.css - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/css/styles.css
+js/content-loader.js - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/js/content-loader.js
+
+⚡ High Priority Files:
+
+index.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/index.html
+js/data-manager.js - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/js/data-manager.js
+js/scripts.js - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/js/scripts.js
+
+📄 Page Templates:
+
+pages/grades/grade6/index.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/grades/grade6/index.html
+pages/grades/grade6/textbooks.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/grades/grade6/textbooks.html
+pages/grades/grade6/papers.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/grades/grade6/papers.html
+pages/grades/grade6/notes.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/grades/grade6/notes.html
+pages/grades/grade6/videos.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/grades/grade6/videos.html
+pages/grades/grade6/subject.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/grades/grade6/subject.html
+
+🎨 Styling Files:
+
+css/pages/about.css - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/css/pages/about.css
+css/pages/contact.css - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/css/pages/contact.css
+css/pages/grade-overview.css - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/css/pages/grade-overview.css
+
+📋 Content Pages:
+
+pages/about.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/about.html
+pages/contact.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/pages/contact.html
+partials/footer.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/partials/footer.html
+
+🔧 Functionality Files:
+
+js/pages/grades.js - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/js/pages/grades.js
+js/pages/contact.js - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/js/pages/contact.js
+
+👨‍💼 Admin Files:
+
+admin/index.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/admin/index.html
+admin/login.html - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/admin/login.html
+admin/js/admin.js - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/admin/js/admin.js
+admin/css/admin.css - https://raw.githubusercontent.com/Deadsecnote1/TT/refs/heads/main/admin/css/admin.css

@@ -1,4 +1,4 @@
-// Content Loader - Loads dynamic content for grade pages
+// Content Loader - Complete Fixed Version
 class ContentLoader {
     constructor() {
         this.dataManager = window.dataManager;
@@ -34,7 +34,7 @@ class ContentLoader {
         return this.generateVideosHTML(pageData);
     }
 
-    // Generate HTML for grade overview
+    // Generate HTML for grade overview - NO GRADE NUMBER
     generateGradeOverviewHTML(pageData) {
         const grade = pageData.grade;
         const subjects = pageData.subjects;
@@ -42,7 +42,6 @@ class ContentLoader {
         let html = `
             <header class="grade-header">
                 <div class="container text-center">
-                    <div class="grade-number">${grade.display.includes('A/L') ? 'A/L' : grade.display.split(' ')[1]}</div>
                     <h1 class="display-4 fw-bold">${grade.display} Resources</h1>
                     <p class="lead">Complete study materials in all three mediums</p>
                 </div>
@@ -94,8 +93,7 @@ class ContentLoader {
                     </div>
 
                     <h3 class="mb-4">Available Subjects</h3>
-                    <div class="row g-4">
-        `;
+                    <div class="row g-4">`;
 
         Object.keys(subjects).forEach(subjectId => {
             const subject = subjects[subjectId];
@@ -110,20 +108,18 @@ class ContentLoader {
                             <small>${this.getSubjectResourceCount(subject)} resources</small>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
 
         html += `
                     </div>
                 </div>
-            </section>
-        `;
+            </section>`;
 
         return html;
     }
 
-    // Generate HTML for textbooks page
+    // Generate HTML for textbooks page - NO GRADE NUMBER
     generateTextbooksHTML(pageData) {
         const grade = pageData.grade;
         const subjects = pageData.subjects;
@@ -131,7 +127,6 @@ class ContentLoader {
         let html = `
             <header class="grade-header">
                 <div class="container text-center">
-                    <div class="grade-number">${grade.display.includes('A/L') ? 'A/L' : grade.display.split(' ')[1]}</div>
                     <h1 class="display-4 fw-bold">${grade.display} Textbooks</h1>
                     <p class="lead">Download textbooks in Sinhala, Tamil, and English</p>
                 </div>
@@ -150,8 +145,7 @@ class ContentLoader {
             </section>
 
             <section class="py-5">
-                <div class="container">
-        `;
+                <div class="container">`;
 
         Object.keys(subjects).forEach(subjectId => {
             const subject = subjects[subjectId];
@@ -186,19 +180,17 @@ class ContentLoader {
                             </div>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
 
         html += `
                 </div>
-            </section>
-        `;
+            </section>`;
 
         return html;
     }
 
-    // Generate HTML for papers page
+    // Generate HTML for papers page - NO GRADE NUMBER
     generatePapersHTML(pageData) {
         const grade = pageData.grade;
         const subjects = pageData.subjects;
@@ -206,7 +198,6 @@ class ContentLoader {
         let html = `
             <header class="grade-header">
                 <div class="container text-center">
-                    <div class="grade-number">${grade.display.includes('A/L') ? 'A/L' : grade.display.split(' ')[1]}</div>
                     <h1 class="display-4 fw-bold">${grade.display} Exam Papers</h1>
                     <p class="lead">Past papers for practice and preparation</p>
                 </div>
@@ -225,8 +216,7 @@ class ContentLoader {
             </section>
 
             <section class="py-5">
-                <div class="container">
-        `;
+                <div class="container">`;
 
         Object.keys(subjects).forEach(subjectId => {
             const subject = subjects[subjectId];
@@ -255,19 +245,17 @@ class ContentLoader {
                             </div>
                         </div>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
 
         html += `
                 </div>
-            </section>
-        `;
+            </section>`;
 
         return html;
     }
 
-    // Generate HTML for notes page
+    // Generate HTML for notes page - NO GRADE NUMBER
     generateNotesHTML(pageData) {
         const grade = pageData.grade;
         const subjects = pageData.subjects;
@@ -275,7 +263,6 @@ class ContentLoader {
         let html = `
             <header class="grade-header">
                 <div class="container text-center">
-                    <div class="grade-number">${grade.display.includes('A/L') ? 'A/L' : grade.display.split(' ')[1]}</div>
                     <h1 class="display-4 fw-bold">${grade.display} Short Notes</h1>
                     <p class="lead">Quick reference notes for all chapters</p>
                 </div>
@@ -294,8 +281,7 @@ class ContentLoader {
             </section>
 
             <section class="py-5">
-                <div class="container">
-        `;
+                <div class="container">`;
 
         Object.keys(subjects).forEach(subjectId => {
             const subject = subjects[subjectId];
@@ -313,19 +299,17 @@ class ContentLoader {
                     <div class="notes-grid">
                         ${this.generateNotesGrid(notes)}
                     </div>
-                </div>
-            `;
+                </div>`;
         });
 
         html += `
                 </div>
-            </section>
-        `;
+            </section>`;
 
         return html;
     }
 
-    // Generate HTML for videos page
+    // Generate HTML for videos page - NO GRADE NUMBER
     generateVideosHTML(pageData) {
         const grade = pageData.grade;
         const subjects = pageData.subjects;
@@ -333,7 +317,6 @@ class ContentLoader {
         let html = `
             <header class="grade-header">
                 <div class="container text-center">
-                    <div class="grade-number">${grade.display.includes('A/L') ? 'A/L' : grade.display.split(' ')[1]}</div>
                     <h1 class="display-4 fw-bold">${grade.display} Video Lessons</h1>
                     <p class="lead">Educational videos and tutorials</p>
                 </div>
@@ -352,8 +335,7 @@ class ContentLoader {
             </section>
 
             <section class="py-5">
-                <div class="container">
-        `;
+                <div class="container">`;
 
         Object.keys(subjects).forEach(subjectId => {
             const subject = subjects[subjectId];
@@ -371,19 +353,17 @@ class ContentLoader {
                     <div class="videos-grid">
                         ${this.generateVideosGrid(videos)}
                     </div>
-                </div>
-            `;
+                </div>`;
         });
 
         html += `
                 </div>
-            </section>
-        `;
+            </section>`;
 
         return html;
     }
 
-    // Helper methods for generating specific content sections
+    // Helper method for textbook downloads
     generateTextbookDownload(textbook, medium) {
         if (!textbook) {
             return `<p class="text-muted">No ${medium} textbook available</p>`;
@@ -398,10 +378,10 @@ class ContentLoader {
                 <a href="../../../${textbook.path}" class="btn btn-primary btn-sm" download>
                     <i class="bi bi-download me-1"></i>Download
                 </a>
-            </div>
-        `;
+            </div>`;
     }
 
+    // Generate term papers with correct structure for arrays
     generateTermPapers(termPapers) {
         if (!termPapers || Object.keys(termPapers).length === 0) {
             return '<p class="text-muted">No term papers available</p>';
@@ -409,20 +389,36 @@ class ContentLoader {
 
         let html = '';
         Object.keys(termPapers).forEach(termKey => {
-            const paper = termPapers[termKey];
-            html += `
-                <div class="paper-item">
-                    <span>${this.formatTermName(termKey)}</span>
-                    <a href="../../../${paper.path}" class="btn btn-sm btn-outline-primary" download>
-                        <i class="bi bi-download"></i>
-                    </a>
-                </div>
-            `;
+            const papers = termPapers[termKey];
+            
+            // Handle both array and single object structures
+            if (Array.isArray(papers) && papers.length > 0) {
+                // New structure: array of papers
+                papers.forEach(paper => {
+                    html += `
+                        <div class="paper-item" data-language="${paper.language || 'english'}">
+                            <span>${this.formatTermName(termKey)}</span>
+                            <a href="../../../${paper.path}" class="btn btn-sm btn-outline-primary" download>
+                                <i class="bi bi-download"></i>
+                            </a>
+                        </div>`;
+                });
+            } else if (papers && typeof papers === 'object' && papers.path) {
+                // Old structure: single paper object
+                html += `
+                    <div class="paper-item" data-language="${papers.language || 'english'}">
+                        <span>${this.formatTermName(termKey)}</span>
+                        <a href="../../../${papers.path}" class="btn btn-sm btn-outline-primary" download>
+                            <i class="bi bi-download"></i>
+                        </a>
+                    </div>`;
+            }
         });
 
-        return html;
+        return html || '<p class="text-muted">No term papers available</p>';
     }
 
+    // Generate chapter papers with correct structure for arrays
     generateChapterPapers(chapterPapers) {
         if (!chapterPapers || Object.keys(chapterPapers).length === 0) {
             return '<p class="text-muted">No chapter papers available</p>';
@@ -430,18 +426,33 @@ class ContentLoader {
 
         let html = '';
         Object.keys(chapterPapers).forEach(chapterKey => {
-            const paper = chapterPapers[chapterKey];
-            html += `
-                <div class="paper-item">
-                    <span>${this.formatChapterName(chapterKey)}</span>
-                    <a href="../../../${paper.path}" class="btn btn-sm btn-outline-primary" download>
-                        <i class="bi bi-download"></i>
-                    </a>
-                </div>
-            `;
+            const papers = chapterPapers[chapterKey];
+            
+            // Handle both array and single object structures
+            if (Array.isArray(papers) && papers.length > 0) {
+                // New structure: array of papers
+                papers.forEach(paper => {
+                    html += `
+                        <div class="paper-item" data-language="${paper.language || 'english'}">
+                            <span>${this.formatChapterName(chapterKey)}</span>
+                            <a href="../../../${paper.path}" class="btn btn-sm btn-outline-primary" download>
+                                <i class="bi bi-download"></i>
+                            </a>
+                        </div>`;
+                });
+            } else if (papers && typeof papers === 'object' && papers.path) {
+                // Old structure: single paper object
+                html += `
+                    <div class="paper-item" data-language="${papers.language || 'english'}">
+                        <span>${this.formatChapterName(chapterKey)}</span>
+                        <a href="../../../${papers.path}" class="btn btn-sm btn-outline-primary" download>
+                            <i class="bi bi-download"></i>
+                        </a>
+                    </div>`;
+            }
         });
 
-        return html;
+        return html || '<p class="text-muted">No chapter papers available</p>';
     }
 
     generateNotesGrid(notes) {
@@ -453,7 +464,7 @@ class ContentLoader {
         Object.keys(notes).forEach(noteKey => {
             const note = notes[noteKey];
             html += `
-                <div class="note-card">
+                <div class="note-card" data-language="${note.language || 'english'}">
                     <div class="note-icon">
                         <i class="bi bi-file-pdf"></i>
                     </div>
@@ -464,8 +475,7 @@ class ContentLoader {
                     <a href="../../../${note.path}" class="btn btn-primary btn-sm" download>
                         <i class="bi bi-download"></i>
                     </a>
-                </div>
-            `;
+                </div>`;
         });
 
         return html;
@@ -482,7 +492,7 @@ class ContentLoader {
             const thumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : null;
 
             html += `
-                <div class="video-card">
+                <div class="video-card" data-language="${video.language || 'english'}">
                     <div class="video-thumbnail">
                         ${thumbnail ? `<img src="${thumbnail}" alt="${video.title}">` : '<div class="placeholder-thumbnail"><i class="bi bi-play-circle"></i></div>'}
                         <div class="play-overlay">
@@ -496,8 +506,7 @@ class ContentLoader {
                     <a href="${video.url}" class="btn btn-danger btn-sm" target="_blank">
                         <i class="bi bi-youtube me-1"></i>Watch
                     </a>
-                </div>
-            `;
+                </div>`;
         });
 
         return html;
@@ -520,8 +529,26 @@ class ContentLoader {
         Object.keys(subjects).forEach(subjectId => {
             const papers = subjects[subjectId].resources.papers;
             if (papers) {
-                if (papers.terms) count += Object.keys(papers.terms).length;
-                if (papers.chapters) count += Object.keys(papers.chapters).length;
+                if (papers.terms) {
+                    Object.keys(papers.terms).forEach(term => {
+                        const termPapers = papers.terms[term];
+                        if (Array.isArray(termPapers)) {
+                            count += termPapers.length;
+                        } else if (termPapers && typeof termPapers === 'object') {
+                            count += 1;
+                        }
+                    });
+                }
+                if (papers.chapters) {
+                    Object.keys(papers.chapters).forEach(chapter => {
+                        const chapterPapers = papers.chapters[chapter];
+                        if (Array.isArray(chapterPapers)) {
+                            count += chapterPapers.length;
+                        } else if (chapterPapers && typeof chapterPapers === 'object') {
+                            count += 1;
+                        }
+                    });
+                }
             }
         });
         return count;
@@ -553,8 +580,26 @@ class ContentLoader {
         let count = 0;
         if (subject.resources.textbooks) count += Object.keys(subject.resources.textbooks).length;
         if (subject.resources.papers) {
-            if (subject.resources.papers.terms) count += Object.keys(subject.resources.papers.terms).length;
-            if (subject.resources.papers.chapters) count += Object.keys(subject.resources.papers.chapters).length;
+            if (subject.resources.papers.terms) {
+                Object.keys(subject.resources.papers.terms).forEach(term => {
+                    const termPapers = subject.resources.papers.terms[term];
+                    if (Array.isArray(termPapers)) {
+                        count += termPapers.length;
+                    } else if (termPapers && typeof termPapers === 'object') {
+                        count += 1;
+                    }
+                });
+            }
+            if (subject.resources.papers.chapters) {
+                Object.keys(subject.resources.papers.chapters).forEach(chapter => {
+                    const chapterPapers = subject.resources.papers.chapters[chapter];
+                    if (Array.isArray(chapterPapers)) {
+                        count += chapterPapers.length;
+                    } else if (chapterPapers && typeof chapterPapers === 'object') {
+                        count += 1;
+                    }
+                });
+            }
         }
         if (subject.resources.notes) count += Object.keys(subject.resources.notes).length;
         if (subject.videos) count += subject.videos.length;
