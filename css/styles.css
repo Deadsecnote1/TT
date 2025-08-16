@@ -600,3 +600,304 @@ textarea:focus {
         --card-bg: white;
     }
 }
+
+/* Dark Mode Text Visibility Fixes - Add to your css/styles.css */
+
+/* Dark Mode Colors - Enhanced */
+[data-theme="dark"] {
+    --bg-primary: #121212;
+    --bg-secondary: #1e1e1e;
+    --bg-tertiary: #2d2d2d;
+    --text-primary: #e0e0e0;
+    --text-secondary: #b0b0b0;
+    --text-muted: #9e9e9e;
+    --border-color: #404040;
+    --navbar-bg: #1B5E20;
+    --card-bg: #1e1e1e;
+    --card-shadow: rgba(0, 0, 0, 0.3);
+    --hero-gradient: linear-gradient(135deg, #1B5E20 0%, #0d3f10 100%);
+    
+    --primary: #4CAF50;
+    --secondary: #FF8F00;
+    --light: #2d2d2d;
+    --dark: #e0e0e0;
+}
+
+/* DARK MODE TEXT FIXES */
+[data-theme="dark"] body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Fix all text elements in dark mode */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div,
+[data-theme="dark"] li {
+    color: var(--text-primary) !important;
+}
+
+/* Fix small text and muted text */
+[data-theme="dark"] small,
+[data-theme="dark"] .text-muted {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .text-secondary {
+    color: var(--text-secondary) !important;
+}
+
+/* Fix card text */
+[data-theme="dark"] .card,
+[data-theme="dark"] .grade-card,
+[data-theme="dark"] .feature-card {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card h5,
+[data-theme="dark"] .grade-card h5,
+[data-theme="dark"] .feature-card h5 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .card p,
+[data-theme="dark"] .grade-card p,
+[data-theme="dark"] .feature-card p {
+    color: var(--text-secondary) !important;
+}
+
+/* Fix textbook medium cards */
+[data-theme="dark"] .textbook-medium-card {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .textbook-medium-card h5 {
+    color: var(--text-primary) !important;
+}
+
+/* Fix download items */
+[data-theme="dark"] .download-item {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .download-info h6 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .download-info small {
+    color: var(--text-muted) !important;
+}
+
+/* Fix paper items */
+[data-theme="dark"] .paper-item {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .paper-item span {
+    color: var(--text-primary) !important;
+}
+
+/* Fix note cards */
+[data-theme="dark"] .note-card {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .note-content h6 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .note-content small {
+    color: var(--text-muted) !important;
+}
+
+/* Fix video cards */
+[data-theme="dark"] .video-card {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .video-content h6 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .video-content small {
+    color: var(--text-muted) !important;
+}
+
+/* Fix subject headers */
+[data-theme="dark"] .subject-header h3 {
+    color: var(--text-primary) !important;
+}
+
+/* Fix breadcrumbs */
+[data-theme="dark"] .breadcrumb-item {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] .breadcrumb-item.active {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .breadcrumb-item a {
+    color: var(--primary) !important;
+}
+
+/* Fix forms in dark mode */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: var(--text-muted) !important;
+}
+
+[data-theme="dark"] .form-label {
+    color: var(--text-primary) !important;
+}
+
+/* Fix buttons text */
+[data-theme="dark"] .btn-light {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .btn-light:hover {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Fix tables */
+[data-theme="dark"] .table {
+    color: var(--text-primary) !important;
+    background-color: var(--card-bg) !important;
+}
+
+[data-theme="dark"] .table td {
+    border-color: var(--border-color) !important;
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Fix alerts */
+[data-theme="dark"] .alert {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Fix navbar text */
+[data-theme="dark"] .navbar-brand,
+[data-theme="dark"] .nav-link {
+    color: rgba(255,255,255,0.9) !important;
+}
+
+/* Fix footer */
+[data-theme="dark"] footer {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] footer h5,
+[data-theme="dark"] footer h6 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] footer a {
+    color: var(--text-secondary) !important;
+}
+
+[data-theme="dark"] footer a:hover {
+    color: var(--primary) !important;
+}
+
+/* Fix specific sections that might have black text */
+[data-theme="dark"] .bg-light {
+    background-color: var(--bg-secondary) !important;
+}
+
+[data-theme="dark"] .text-dark {
+    color: var(--text-primary) !important;
+}
+
+/* Fix dropdown menus */
+[data-theme="dark"] .dropdown-menu {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: var(--primary) !important;
+    color: white !important;
+}
+
+/* Fix any remaining black text */
+[data-theme="dark"] .text-black,
+[data-theme="dark"] [style*="color: black"],
+[data-theme="dark"] [style*="color: #000"] {
+    color: var(--text-primary) !important;
+}
+
+/* Fix contrast issues */
+[data-theme="dark"] .badge {
+    color: white !important;
+}
+
+[data-theme="dark"] .badge.bg-light {
+    background-color: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Admin specific dark mode fixes */
+[data-theme="dark"] .admin-sidebar {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .admin-sidebar .nav-link {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .admin-sidebar .nav-link:hover {
+    background-color: var(--bg-secondary) !important;
+    color: var(--primary) !important;
+}
+
+[data-theme="dark"] .admin-sidebar .nav-link.active {
+    background-color: var(--primary) !important;
+    color: white !important;
+}
+
+[data-theme="dark"] .stat-card {
+    background-color: var(--card-bg) !important;
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .stat-content h3 {
+    color: var(--text-primary) !important;
+}
+
+[data-theme="dark"] .stat-content p {
+    color: var(--text-secondary) !important;
+}

@@ -514,3 +514,290 @@
         font-size: 1rem;
     }
 }
+
+/* Textbook Layout Fixes - Add to css/pages/grade-overview.css */
+
+/* FIXED: Textbook Medium Cards Layout */
+.textbook-cards-container {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.textbook-medium-card {
+    background: var(--card-bg);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 5px 20px var(--card-shadow);
+    transition: all 0.3s ease;
+    border-left: 5px solid;
+    margin-bottom: 2rem;
+    flex: 1;
+    min-width: 300px;
+    max-width: 400px;
+}
+
+/* FIXED: When cards are hidden, maintain layout */
+.textbook-medium-card[style*="display: none"] {
+    display: none !important;
+}
+
+.textbook-medium-card:not([style*="display: none"]) {
+    display: block !important;
+}
+
+/* FIXED: Row layout for textbooks */
+.textbook-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Language-specific styling */
+.textbook-medium-card.sinhala {
+    border-left-color: var(--sinhala);
+}
+
+.textbook-medium-card.tamil {
+    border-left-color: var(--tamil);
+}
+
+.textbook-medium-card.english {
+    border-left-color: var(--english);
+}
+
+.textbook-medium-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px var(--card-shadow);
+}
+
+.textbook-medium-card h5 {
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+/* FIXED: Download item layout */
+.download-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.download-item:last-child {
+    margin-bottom: 0;
+}
+
+.download-info h6 {
+    margin: 0;
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.download-info small {
+    color: var(--text-muted);
+}
+
+/* FIXED: Subject section layout improvements */
+.subject-section {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.subject-section:last-child {
+    border-bottom: none;
+}
+
+/* FIXED: Responsive layout for textbooks */
+@media (max-width: 1200px) {
+    .textbook-row {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .textbook-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .textbook-medium-card {
+        min-width: auto;
+        max-width: none;
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* FIXED: Language filter responsive behavior */
+.language-filtered .textbook-row {
+    justify-content: flex-start;
+}
+
+/* When only one language is shown, don't center it */
+.textbook-row .textbook-medium-card:only-child {
+    max-width: 400px;
+    justify-self: start;
+}
+
+/* FIXED: Hide empty subject sections gracefully */
+.subject-section[style*="display: none"] {
+    display: none !important;
+}
+
+.subject-section:not([style*="display: none"]) {
+    display: block !important;
+}
+
+/* FIXED: Grid layout improvements */
+.textbook-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.textbook-cards-grid .textbook-medium-card {
+    margin-bottom: 0;
+}
+
+/* FIXED: Consistent spacing when filtered */
+.subject-section .row > [class*="col-"] {
+    margin-bottom: 1.5rem;
+}
+
+/* FIXED: Language indicator improvements */
+.language-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.language-indicator.sinhala {
+    background-color: var(--sinhala);
+}
+
+.language-indicator.tamil {
+    background-color: var(--tamil);
+}
+
+.language-indicator.english {
+    background-color: var(--english);
+}
+
+/* FIXED: Empty state styling */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-muted);
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state h4 {
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+/* FIXED: Language filter notification */
+.language-filter-notice {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.language-filter-notice i {
+    color: var(--primary);
+    margin-right: 0.5rem;
+}
+
+.language-filter-notice span {
+    color: var(--text-primary);
+}
+
+/* FIXED: Smooth transitions for layout changes */
+.textbook-medium-card,
+.subject-section {
+    transition: all 0.3s ease;
+}
+
+/* FIXED: Prevent layout shift during filtering */
+.filtering .textbook-medium-card {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.filtering .textbook-medium-card[style*="display: none"] {
+    opacity: 0;
+    transform: scale(0.95);
+}
+
+/* FIXED: Grid auto-fit behavior */
+.auto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    align-items: start;
+}
+
+.auto-grid > * {
+    margin-bottom: 0 !important;
+}
+
+/* FIXED: Ensure proper spacing in filtered state */
+.filtered-layout .subject-section {
+    margin-bottom: 2rem;
+}
+
+.filtered-layout .textbook-medium-card:not([style*="display: none"]) {
+    animation: fadeInUp 0.3s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* FIXED: Dark mode compatibility for layout fixes */
+[data-theme="dark"] .textbook-medium-card {
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .download-item {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+[data-theme="dark"] .language-filter-notice {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
